@@ -1,2 +1,2 @@
 # hello-world
-just another repository
+hello I create the first deposite just for learning use of github.
