@@ -1,2 +1,2 @@
-# hello-world
-hello I create the first deposite just for learning use of github.
+高性能计算小白日记
+多多支持！
