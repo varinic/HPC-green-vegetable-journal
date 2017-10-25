@@ -14,3 +14,4 @@
 openACC代码用swacc编译，mpi用mpicc
 
 接下来要学习openACC和官方加速库AThread了。
+
