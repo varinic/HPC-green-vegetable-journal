@@ -1,0 +1,45 @@
+太湖神威上会用到openACC进行并行程序设计，接下来讲解openACC的一些基本概念和使用方法。
+openACC可以指导编译器将程序翻译为运行在加速器上的并行程序
+指导语句以#pragma acc 打头，后跟子语。
+
+常用的#pragma acc parallel后跟一块区域，这块区域内的代码将会被并行化
+即使如下大括号内若干个语句也会被并行化
+
+#pragma acc parallel
+{
+  for(i=0;i<n;i++){
+    a[i]=b[i]+c[i];
+  }
+  for(j=0;j<n;j++){
+    d[j]=a[j]*c[j];
+  }
+}
+
+#pragma acc loop 后紧跟一个循环，这个循环会被并行化，如：
+#pragma acc parallel
+{
+  #pragma acc loop
+  for(i=0;i<n;i++){
+    a[i]=b[i]+c[i];
+  }
+  #pragma acc loop
+  for(j=0;j<n;j++){
+    d[j]=a[j]*c[j];
+  }
+}
+
+tile分块也是用的比较多的优化方法，它将一个循环分成两个，乍一看循环层数增加了，但反而加快了程序
+#pragma acc parallel loop tile (2)
+for(i=0;i<n;i++){
+  a[i]=b[i]+c[i];
+}
+编译后：
+for(i=0;i<2;i++){
+  int start=i*(n/2);
+  int end=start+(n/2);
+  for（j=start;j<end;j++){
+    a[j]=b[j]+c[j];
+  }
+}
+分成两个循环后可将原本大块数据a,b,c各分成前后两半a1,b1,c1,a2,b2,c2计算时1只和1相关，2只和2相关，大小减半后
+计算1时可将a1,b1,c1都拷贝到device内存中，而且对cache也更友好。能显著加速。
