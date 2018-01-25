@@ -33,7 +33,7 @@ _大**家**好_<br>
 1. 列表3
 
 ## 图片
-![](https://github.com/varinic/High-Performance-Compute/blob/master/I_Love_Panda.JPG）
+![](https://github.com/varinic/High-Performance-Compute/blob/master/longmao.jpg）
 
 ## 链接
 [Mastering MarkDown](https://guides.github.com/features/mastering-markdown/)
